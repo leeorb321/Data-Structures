@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from linkedlist import ListNode, List
 
 class Queue(List):
@@ -21,6 +23,10 @@ class Queue(List):
                 self.tail = self.head
 
         return dequeued_element
+
+    def peek(self):
+        return self.head.val
+
 
 
 
