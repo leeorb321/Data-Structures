@@ -2,7 +2,7 @@
 
 class TreeNode(object):
 
-    '''Implementation of Tree Node object.'''
+    '''Implementation of Binary Tree Node object.'''
 
     def __init__(self, val=None, left=None, right=None, parent=None):
         self.val = val
@@ -24,10 +24,24 @@ class TreeNode(object):
         else:
             return False
 
+    def is_left_child(self):
+        if self.parent == None:
+            return False
+        if self.parent.left == self:
+            return True
+        return False
 
-class Tree(object):
+    def is_right_child(self):
+        if self.parent == None:
+            return False
+        if self.parent.right == self:
+            return True
+        return False
 
-    '''Implementation of Tree structure.'''
+
+class BinaryTree(object):
+
+    '''Implementation of Binary Tree structure.'''
 
     def __init__(self, root=None):
         self.root = root
@@ -39,8 +53,8 @@ class Tree(object):
         '''In-order traversal of the tree, starting at ptr.'''
 
         if ptr != None:
-            print(ptr.val)
             self.traverse(ptr.left)
+            print(ptr.val)
             self.traverse(ptr.right)
 
 
