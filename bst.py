@@ -9,7 +9,8 @@ class BST(BinaryTree):
     def __init__(self, root=None):
         super(BST, self).__init__(root)
 
-    def search(self, val, ptr=self.root):
+    def search(self, val):
+        ptr = self.root
         while ptr != None:
             if val == ptr.val:
                 return ptr
@@ -52,19 +53,82 @@ class BST(BinaryTree):
         if not isinstance(to_remove, TreeNode):
             self._remove_by_val(to_remove)
         else:
-            self._remove_by_val(to_remove.val)
+            self._remove_by_ref(to_remove)
+
+    def _remove_by_ref(self, node):
+        # If node has no children
+        if node.left == None and node.right == None:
+            if node.is_left_child() == True:
+                node.parent.left = None
+            elif node.is_right_child() == True:
+                node.parent.right = None
+            else:
+                node = None
+
+        # If node has only one child
+        elif node.left == None and node.right != None:
+            if node.is_left_child() == True:
+                node.parent.left = node.right
+            elif node.is_right_child() == True:
+                node.parent.right = node.right
+        elif node.left != None and node.right == None:
+            if node.is_left_child() == True:
+                node.parent.left = node.left
+            elif node.is_right_child() == True:
+                node.parent.right = node.left
+
+        # If node has both left and right children
+        elif node.left and node.right:
+            self.swap(node, self.get_swap_node(node))
+            self.remove(node)
 
     def _remove_by_val(self, val):
         ptr = self.search(val)
-        if ptr.is_left_child() == True:
-            ptr.parent.left = ptr.left
-            if ptr.right > ptr.left:
-                ptr.parent.left.right = ptr.right
+
+        # If node has no children
+        if ptr.left == None and ptr.right == None:
+            if ptr.is_left_child() == True:
+                ptr.parent.left = None
+            elif ptr.is_right_child() == True:
+                ptr.parent.right = None
             else:
-                ptr.parent.left.left = ptr.right
-        elif ptr.is_right_child() == True:
-            ptr.parent.right = ptr.right
-            if ptr.left < ptr.right:
-                ptr.parent.right.left = ptr.left
-            else:
-                ptr.parent.right.right = ptr.right
+                ptr = None
+
+        # If node has only one child
+        elif ptr.left == None and ptr.right != None:
+            if ptr.is_left_child() == True:
+                ptr.parent.left = ptr.right
+            elif ptr.is_right_child() == True:
+                ptr.parent.right = ptr.right
+        elif ptr.left != None and ptr.right == None:
+            if ptr.is_left_child() == True:
+                ptr.parent.left = ptr.left
+            elif ptr.is_right_child() == True:
+                ptr.parent.right = ptr.left
+
+        # If node has both left and right children
+        elif ptr.left and ptr.right:
+            self.swap(ptr, self.get_swap_node(ptr))
+            self.remove(ptr)
+
+    def swap(self, node1, node2):
+        node1.val, node2.val = node2.val, node1.val
+
+    def get_swap_node(self, node):
+        if node == None or node.is_lone_leaf():
+            return None
+
+        current = None
+
+        # Get max val in left subtree
+        if node.left != None:
+            current = node.left
+            while current.right != None:
+                current = current.right
+
+        elif node.right != None:
+            current = node.right
+            while current.right != None:
+                current = current.left
+
+        return current

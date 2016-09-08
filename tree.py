@@ -38,6 +38,9 @@ class TreeNode(object):
             return True
         return False
 
+    def is_lone_leaf(self):
+        return not self.parent and not self.left and not self.right
+
 
 class BinaryTree(object):
 
