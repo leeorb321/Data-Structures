@@ -26,28 +26,28 @@ class BST(BinaryTree):
                     return False
         return False
 
-    def add(self, to_add):
-        if not isinstance(to_add, TreeNode):
-            new_node = TreeNode(to_add)
+    def insert(self, to_insert):
+        if not isinstance(to_insert, TreeNode):
+            new_node = TreeNode(to_insert)
         else:
-            new_node = to_add
+            new_node = to_insert
 
         if self.is_empty():
             self.root = new_node
         else:
-            self._add(self.root, new_node)
+            self._insert(self.root, new_node)
 
-    def _add(self, ptr, new_node):
+    def _insert(self, ptr, new_node):
         if new_node.val < ptr.val:
             if ptr.left == None:
-                ptr.add_left(new_node)
+                ptr.insert_left(new_node)
             else:
-                self._add(ptr.left, new_node)
+                self._insert(ptr.left, new_node)
         else:
             if ptr.right == None:
-                ptr.add_right(new_node)
+                ptr.insert_right(new_node)
             else:
-                self._add(ptr.right, new_node)
+                self._insert(ptr.right, new_node)
 
     def remove(self, to_remove):
         if not isinstance(to_remove, TreeNode):
@@ -84,6 +84,7 @@ class BST(BinaryTree):
             swap_node = self.get_swap_node(node)
             self.swap(node, swap_node)
             self._remove_by_ref(swap_node)
+            # self._remove_by_ref(node)
 
     def _remove_by_val(self, val):
         ptr = self.search(val)
@@ -116,9 +117,11 @@ class BST(BinaryTree):
             swap_node = self.get_swap_node(ptr)
             self.swap(ptr, swap_node)
             self._remove_by_ref(swap_node)
+            # self._remove_by_ref(ptr)
 
     def swap(self, node1, node2):
         node1.val, node2.val = node2.val, node1.val
+        # node1.parent, node1.left, node1.right, node1.val, node2.parent, node2.left, node2.right, node2.val = node2.parent, node2.left, node2.right, node2.val, node1.parent, node1.left, node1.right, node1.val
 
     def get_swap_node(self, node):
         if node == None or node.is_lone_leaf():

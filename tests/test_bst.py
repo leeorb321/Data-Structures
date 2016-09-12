@@ -17,8 +17,8 @@ class TestBinaryTree(unittest.TestCase):
     def test_search(self):
         t = BST()
         t.root = TreeNode(2)
-        t.root.add_left(TreeNode(1))
-        t.root.add_right(TreeNode(3))
+        t.root.insert_left(TreeNode(1))
+        t.root.insert_right(TreeNode(3))
 
         ptr = t.search(3)
         self.assertEqual(ptr.val, 3)
@@ -30,17 +30,17 @@ class TestBinaryTree(unittest.TestCase):
         ptr = t.search(5)
         self.assertFalse(ptr)
 
-    def test_add(self):
+    def test_insert(self):
         t = BST()
         t.root = TreeNode(3)
-        t.add(5)
+        t.insert(5)
         self.assertEqual(t.root.right.val, 5)
         self.assertFalse(t.root.left)
 
         t1 = BST()
-        t1.add(2)
-        t1.add(1)
-        t1.add(3)
+        t1.insert(2)
+        t1.insert(1)
+        t1.insert(3)
         self.assertEqual(t1.root.val, 2)
         self.assertEqual(t1.root.left.val, 1)
         self.assertEqual(t1.root.right.val, 3)
@@ -50,7 +50,7 @@ class TestBinaryTree(unittest.TestCase):
 
     def test_remove_by_val_no_children(self):
         t = BST()
-        t.add(2)
+        t.insert(2)
         self.assertFalse(t.is_empty())
         t.remove(2)
         self.assertTrue(t.is_empty())
@@ -58,9 +58,9 @@ class TestBinaryTree(unittest.TestCase):
         self.assertFalse(ptr)
 
         t1 = BST()
-        t.add(2)
-        t.add(3)
-        t.add(1)
+        t.insert(2)
+        t.insert(3)
+        t.insert(1)
 
         ptr = t.search(3)
         self.assertTrue(ptr)
@@ -76,7 +76,7 @@ class TestBinaryTree(unittest.TestCase):
 
     def test_remove_by_ref_no_children(self):
         t = BST()
-        t.add(2)
+        t.insert(2)
         self.assertFalse(t.is_empty())
         ptr = t.search(2)
         t.remove(ptr)
@@ -84,9 +84,9 @@ class TestBinaryTree(unittest.TestCase):
         self.assertFalse(t.search(ptr.val))
 
         t1 = BST()
-        t.add(2)
-        t.add(3)
-        t.add(1)
+        t.insert(2)
+        t.insert(3)
+        t.insert(1)
 
         ptr = t.search(3)
         self.assertTrue(ptr)
@@ -99,9 +99,9 @@ class TestBinaryTree(unittest.TestCase):
 
     def test_remove_by_val_one_child(self):
         t = BST()
-        t.add(2)
-        t.add(3)
-        t.add(4)
+        t.insert(2)
+        t.insert(3)
+        t.insert(4)
         ptr = t.search(3)
         self.assertTrue(ptr)
         t.remove(3)
@@ -113,9 +113,9 @@ class TestBinaryTree(unittest.TestCase):
 
     def test_remove_by_ref_one_child(self):
         t = BST()
-        t.add(2)
-        t.add(3)
-        t.add(4)
+        t.insert(2)
+        t.insert(3)
+        t.insert(4)
         three = t.search(3)
         self.assertTrue(three)
         t.remove(three)
@@ -127,9 +127,9 @@ class TestBinaryTree(unittest.TestCase):
 
     def test_swap(self):
         t = BST()
-        t.add(2)
-        t.add(1)
-        t.add(4)
+        t.insert(2)
+        t.insert(1)
+        t.insert(4)
         self.assertEqual(t.root.right.val, 4)
         self.assertEqual(t.root.left.val, 1)
 
@@ -139,27 +139,27 @@ class TestBinaryTree(unittest.TestCase):
 
     def test_get_swap_node(self):
         t = BST()
-        t.add(2)
-        t.add(1)
-        t.add(4)
+        t.insert(2)
+        t.insert(1)
+        t.insert(4)
         ptr = t.get_swap_node(t.root)
         self.assertEqual(ptr.val, 1)
 
         t1 = BST()
-        t1.add(2)
-        t1.add(3)
-        t1.add(4)
+        t1.insert(2)
+        t1.insert(3)
+        t1.insert(4)
         ptr = t1.get_swap_node(t1.root)
         self.assertEqual(ptr.val, 3)
 
 
     def test_remove_by_val_two_children(self):
         t = BST()
-        t.add(2)
-        t.add(4)
-        t.add(5)
-        t.add(3)
-        t.add(1)
+        t.insert(2)
+        t.insert(4)
+        t.insert(5)
+        t.insert(3)
+        t.insert(1)
 
         ptr = t.search(4)
         self.assertTrue(ptr)
@@ -172,11 +172,11 @@ class TestBinaryTree(unittest.TestCase):
 
     def test_remove_by_ref_two_children(self):
         t = BST()
-        t.add(2)
-        t.add(4)
-        t.add(5)
-        t.add(3)
-        t.add(1)
+        t.insert(2)
+        t.insert(4)
+        t.insert(5)
+        t.insert(3)
+        t.insert(1)
 
         t.remove(t.root)
         ptr = t.search(2)

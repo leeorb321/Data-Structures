@@ -19,37 +19,37 @@ class TestTreeNode(unittest.TestCase):
         self.assertEqual(node2.left, node1)
         self.assertEqual(node2.val, 3)
 
-    def test_add_left(self):
+    def test_insert_left(self):
         node1 = TreeNode(4)
         node2 = TreeNode(3)
-        node1.add_left(node2)
+        node1.insert_left(node2)
         self.assertEqual(node1.left, node2)
         self.assertEqual(node2.parent, node1)
 
-    def test_add_right(self):
+    def test_insert_right(self):
         node1 = TreeNode(4)
         node2 = TreeNode(3)
-        node1.add_right(node2)
+        node1.insert_right(node2)
         self.assertEqual(node1.right, node2)
         self.assertEqual(node2.parent, node1)
 
     def test_is_left_child(self):
         node1 = TreeNode(4)
         node2 = TreeNode(3)
-        node1.add_left(node2)
+        node1.insert_left(node2)
         self.assertTrue(node2.is_left_child())
 
     def test_is_right_child(self):
         node1 = TreeNode(4)
         node2 = TreeNode(3)
-        node1.add_right(node2)
+        node1.insert_right(node2)
         self.assertTrue(node2.is_right_child())
 
     def test_is_lone_leaf(self):
         node1 = TreeNode(4)
         self.assertTrue(node1.is_lone_leaf())
         node2 = TreeNode(3)
-        node1.add_right(node2)
+        node1.insert_right(node2)
         self.assertFalse(node1.is_lone_leaf())
         self.assertFalse(node2.is_lone_leaf())
 
@@ -73,8 +73,8 @@ class TestBinaryTree(unittest.TestCase):
 
     def test_traverse(self):
         t = BinaryTree(TreeNode(2))
-        t.root.add_left(TreeNode(4))
-        t.root.add_right(TreeNode(5))
+        t.root.insert_left(TreeNode(4))
+        t.root.insert_right(TreeNode(5))
         out = StringIO()
         t.traverse(t.root, out=out)
         output = out.getvalue().strip()

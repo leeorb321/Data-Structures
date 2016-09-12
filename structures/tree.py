@@ -11,14 +11,14 @@ class TreeNode(object):
         self.right = right
         self.parent = parent
 
-    def add_left(self, node):
+    def insert_left(self, node):
         if self.left == None:
             self.left = node
             self.left.parent = self
         else:
             return False
 
-    def add_right(self, node):
+    def insert_right(self, node):
         if self.right == None:
             self.right = node
             self.right.parent = self
