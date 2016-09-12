@@ -6,7 +6,9 @@ class ListNode(object):
 
     def __init__(self, val=None, next_ptr=None):
         self.val = val
-        if next_ptr == None or self.validate_pointer(next_ptr):
+        if next_ptr == None:
+            self.next_ptr = None
+        elif self.validate_pointer(next_ptr):
             self.next_ptr = next_ptr
         elif next_ptr != None:
             self.add_next(next_ptr)
@@ -21,10 +23,8 @@ class ListNode(object):
 
     def validate_pointer(self, pointer):
         '''Validate that Node points to another valid node.'''
-        if type(pointer) != type(self):
-            raise Exception('Node must point only to other valid Nodes.')
-        else:
-            return True
+        return True if type(pointer) == type(self) else False
+
 
 class List(object):
 
