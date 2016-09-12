@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from sys import stdout
 
 class ListNode(object):
 
@@ -43,11 +44,11 @@ class List(object):
                 current = current.next_ptr
             self.tail = current
 
-    def traverse(self):
+    def traverse(self, out=stdout):
         '''Traverse Linked List and print out node values.'''
         current = self.head
         while current != None:
-            print(current.val)
+            out.write(str(current.val)+'\n')
             current = current.next_ptr
 
     def insert_head(self, val):

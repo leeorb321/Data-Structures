@@ -1,4 +1,6 @@
 import unittest
+import sys
+from io import StringIO
 
 from structures.linkedlist import *
 
@@ -46,4 +48,64 @@ class TestListNode(unittest.TestCase):
 class TestLinkedList(unittest.TestCase):
 
     def test_contructor(self):
-        pass
+        l1 = List()
+        self.assertEqual(l1.head, None)
+        self.assertEqual(l1.tail, None)
+
+        l2 = List(1,2,3)
+        self.assertEqual(l2.head.val, 1)
+        self.assertNotEqual(l2.head, l2.tail)
+        self.assertEqual(type(l2.head), ListNode)
+
+        self.assertNotEqual(l2.head.next_ptr, None)
+        self.assertEqual(l2.tail.next_ptr, None)
+
+    def test_traverse(self):
+        l = List(2,3,4,5)
+        out = StringIO()
+        l.traverse(out=out)
+        output = out.getvalue().strip()
+        self.assertEqual(out.getvalue(), '2\n3\n4\n5\n')
+
+    def test_insert_head(self):
+        l = List(2,3,4,5)
+        self.assertEqual(l.head.val, 2)
+        l.insert_head(55)
+        self.assertEqual(l.head.val, 55)
+
+    def test_insert_tail(self):
+        l = List(2,3,4,5)
+        self.assertEqual(l.tail.val, 5)
+        l.insert_tail(55)
+        self.assertEqual(l.tail.val, 55)
+
+    def test_insert_after(self):
+        l = List(2,3,4,5)
+        ptr = l.search(3)
+        self.assertEqual(ptr.next_ptr.val, 4)
+        l.insert_after(ptr, 22)
+        self.assertEqual(ptr.next_ptr.val, 22)
+
+    def test_remove(self):
+        l = List(2,3,4,5)
+        ptr = l.search(3)
+        self.assertTrue(ptr)
+        l.remove(3)
+        ptr = l.search(3)
+        self.assertFalse(ptr)
+
+    def test_search(self):
+        l = List(2,3,4,5)
+        ptr = l.search(3)
+        self.assertTrue(ptr)
+        ptr = l.search(22)
+        self.assertFalse(ptr)
+
+    def test_is_empty(self):
+        l = List()
+        self.assertTrue(l.is_empty())
+        l.insert_tail(3)
+        self.assertFalse(l.is_empty())
+
+
+
