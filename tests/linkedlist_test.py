@@ -44,7 +44,6 @@ class TestListNode(unittest.TestCase):
         self.assertTrue(temp.validate_pointer(node))
 
 
-
 class TestLinkedList(unittest.TestCase):
 
     def test_contructor(self):
@@ -64,7 +63,6 @@ class TestLinkedList(unittest.TestCase):
         l = List(2,3,4,5)
         out = StringIO()
         l.traverse(out=out)
-        output = out.getvalue().strip()
         self.assertEqual(out.getvalue(), '2\n3\n4\n5\n')
 
     def test_insert_head(self):

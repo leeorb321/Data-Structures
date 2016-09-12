@@ -1,6 +1,5 @@
 import unittest
 import sys
-from io import StringIO
 
 from structures.queue_structure import *
 

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from sys import stdout
 
 class TreeNode(object):
 
@@ -52,12 +53,12 @@ class BinaryTree(object):
     def is_empty(self):
         return self.root == None
 
-    def traverse(self, ptr):
+    def traverse(self, ptr, out=stdout):
         '''In-order traversal of the tree, starting at ptr.'''
 
         if ptr != None:
             self.traverse(ptr.left)
-            print(ptr.val)
+            out.write(str(ptr.val)+'\n')
             self.traverse(ptr.right)
 
 
