@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from tree import TreeNode, BinaryTree
+from .tree import TreeNode, BinaryTree
 
 class BST(BinaryTree):
 
@@ -57,6 +57,8 @@ class BST(BinaryTree):
 
     def _remove_by_ref(self, node):
         # If node has no children
+        if node.is_lone_leaf() == True:
+            self.root = None
         if node.left == None and node.right == None:
             if node.is_left_child() == True:
                 node.parent.left = None
@@ -79,14 +81,17 @@ class BST(BinaryTree):
 
         # If node has both left and right children
         elif node.left and node.right:
-            self.swap(node, self.get_swap_node(node))
-            self.remove(node)
+            swap_node = self.get_swap_node(node)
+            self.swap(node, swap_node)
+            self._remove_by_ref(swap_node)
 
     def _remove_by_val(self, val):
         ptr = self.search(val)
 
         # If node has no children
-        if ptr.left == None and ptr.right == None:
+        if ptr.is_lone_leaf() == True:
+            self.root = None
+        elif ptr.left == None and ptr.right == None:
             if ptr.is_left_child() == True:
                 ptr.parent.left = None
             elif ptr.is_right_child() == True:
@@ -108,8 +113,9 @@ class BST(BinaryTree):
 
         # If node has both left and right children
         elif ptr.left and ptr.right:
-            self.swap(ptr, self.get_swap_node(ptr))
-            self.remove(ptr)
+            swap_node = self.get_swap_node(ptr)
+            self.swap(ptr, swap_node)
+            self._remove_by_ref(swap_node)
 
     def swap(self, node1, node2):
         node1.val, node2.val = node2.val, node1.val
@@ -124,11 +130,17 @@ class BST(BinaryTree):
         if node.left != None:
             current = node.left
             while current.right != None:
-                current = current.right
+                if current.right != None:
+                    current = current.right
+                else:
+                    return current
 
         elif node.right != None:
             current = node.right
             while current.right != None:
-                current = current.left
+                if current.left != None:
+                    current = current.left
+                else:
+                    return current
 
         return current
