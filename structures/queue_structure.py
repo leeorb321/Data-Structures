@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from linkedlist import ListNode, List
+from .linkedlist import ListNode, List
 
 class Queue(List):
 
