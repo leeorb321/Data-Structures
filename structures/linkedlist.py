@@ -7,11 +7,11 @@ class ListNode(object):
 
     def __init__(self, val=None, next_ptr=None):
         self.val = val
-        if next_ptr == None:
+        if next_ptr is None:
             self.next_ptr = None
         elif self.validate_pointer(next_ptr):
             self.next_ptr = next_ptr
-        elif next_ptr != None:
+        elif next_ptr is not None:
             self.add_next(next_ptr)
 
     def add_next(self, val):
@@ -24,7 +24,7 @@ class ListNode(object):
 
     def validate_pointer(self, pointer):
         '''Validate that Node points to another valid node.'''
-        return True if type(pointer) == type(self) else False
+        return True if isinstance(pointer, ListNode) else False
 
 
 class List(object):
@@ -47,13 +47,13 @@ class List(object):
     def traverse(self, out=stdout):
         '''Traverse Linked List and print out node values.'''
         current = self.head
-        while current != None:
+        while current is not None:
             out.write(str(current.val)+'\n')
             current = current.next_ptr
 
     def insert_head(self, val):
         '''Insert new node at head of Linked List.'''
-        if self.head != None:
+        if self.head is not None:
             self.head = ListNode(val, self.head)
         else:
             self.head = ListNode(val, self.head)
@@ -61,7 +61,7 @@ class List(object):
 
     def insert_tail(self, val):
         '''Insert new node at end of Linked List.'''
-        if self.tail == None:
+        if self.tail is None:
             self.insert_head(val)
         else:
             self.tail.next_ptr = ListNode(val)
@@ -70,7 +70,7 @@ class List(object):
     def insert_after(self, node, val):
         '''Insert new node after a certain node in the Linked List.'''
         node.next_ptr = ListNode(val, node.next_ptr)
-        if node.next_ptr.next_ptr == None:
+        if node.next_ptr.next_ptr is None:
             self.tail = node.next_ptr
 
     def remove(self, val):
@@ -84,19 +84,19 @@ class List(object):
         # Check if val is in the head node and remove if found.
         if current.val == val:
             self.head = self.head.next_ptr
-            if self.head.next_ptr == None:
+            if self.head.next_ptr is None:
                 self.tail = self.head
             return True
-        if current.next_ptr == None:
+        if current.next_ptr is None:
             return False
 
         while current.next_ptr.val != val:
             current = current.next_ptr
-            if current.next_ptr == None:
+            if current.next_ptr is None:
                 return False
 
         current.next_ptr = current.next_ptr.next_ptr
-        if current.next_ptr == None:
+        if current.next_ptr is None:
             self.tail = current
 
         return True
@@ -111,6 +111,4 @@ class List(object):
         return False
 
     def is_empty(self):
-        return self.head == self.tail == None
-
-
+        return self.head == self.tail is None

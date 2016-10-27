@@ -7,7 +7,7 @@ class TestBloomFilter(unittest.TestCase):
 
     def test_contructor(self):
         bf = BloomFilter(555)
-        self.assertEqual(bf.bv, 0)
+        self.assertEqual(bf._bv, 0)
         self.assertEqual(bf.size, 555)
 
     def test_add_check(self):

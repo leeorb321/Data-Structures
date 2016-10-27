@@ -12,28 +12,28 @@ class TreeNode(object):
         self.parent = parent
 
     def insert_left(self, node):
-        if self.left == None:
+        if self.left is None:
             self.left = node
             self.left.parent = self
         else:
             return False
 
     def insert_right(self, node):
-        if self.right == None:
+        if self.right is None:
             self.right = node
             self.right.parent = self
         else:
             return False
 
     def is_left_child(self):
-        if self.parent == None:
+        if self.parent is None:
             return False
         if self.parent.left == self:
             return True
         return False
 
     def is_right_child(self):
-        if self.parent == None:
+        if self.parent is None:
             return False
         if self.parent.right == self:
             return True
@@ -51,14 +51,12 @@ class BinaryTree(object):
         self.root = root
 
     def is_empty(self):
-        return self.root == None
+        return self.root is None
 
     def traverse(self, ptr, out=stdout):
         '''In-order traversal of the tree, starting at ptr.'''
 
-        if ptr != None:
+        if ptr is not None:
             self.traverse(ptr.left)
             out.write(str(ptr.val)+'\n')
             self.traverse(ptr.right)
-
-
